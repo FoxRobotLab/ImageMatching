@@ -1,0 +1,78 @@
+-----------------------------------------------------------------------------
+Files in this program:
+
+ImageMatching.cpp is the main program, with ImageMatching.h containing its includes and some global variable definitions
+
+ImageFeatures is a class that represents image features overall.  It contains the different kinds of image features within it,
+  and it has an evaluateSimilarity method that balances the similarity values from the different kinds of image features
+  
+HoughLines, ImageSegmentation, Waterfall, and ColorSignature are all classes that generate, store, and evaluate similarity for
+  a particular kind of image feature (see below for more details)
+  
+OutputLogger is a class that logs outputs to console and/or a log file.  It is currently a subclass of the stringstream class,
+  though it should be redone so it is a subclass of the ostream class, to remove the need for the writeLog method
+  
+WatershedInfo is a class that contains information about a single watershed segment, including the moments for it.
+
+CompareInfo is a parent class for the CompareHough and CompareWatershed objects, which are used to collect up the information needed
+when comparing two lines or two segments together.  The similarity evaluation for segmentation and lines uses a priority queue,
+these objects are the ones placed in the priority queue.
+
+  
+-----------------------------------------------------------------------------
+Program description:
+
+This program compares images for similarity.  It uses three different measures of similarity at the current time:
+-- Hough lines, it generates Hough lines for two images, and then tries to map them onto each other.  The similarity value comes from
+   the number of lines it can match and how good a match they are
+-- Image segmentation, this uses either the plain Watershed function to create regions of the image, or our implementation of the Waterfall
+   algorithm for merging watersheds.  It then tries to map the segments from one image onto another.  The similarity comes from the number
+   of matching segments and how good a match they are.  It uses central and spatial moment values as well as size and location to determine
+   match quality
+-- Color signature, it generates a reduced version of the picture, averaging together the colors in 20x20 pixel sections of the picture,
+   and it keeps a matrix of the resulting colors.  These colors are then matched against each other using euclidean distance.
+   
+The main program takes several different command-line options, which are used to select the particular matching to be done, and to specify
+which images to use.
+
+NOTE: the program also uses a output logger.  When the logger object is created (at the start of main) it is passed two arguments.  These
+arguments tell whether to print the log outputs to a log file or to the console.  Avoiding output to the console will make the program run
+faster.  Log files are placed in the logs folder, named with the time of day when they were started.
+
+
+-----------------------------------------------------------------------------
+The first option is cycle.  If no command-line inputs are given then cycle runs with default values, defined in imageMatching.h
+If cycle is given, then it is followed by 4 values:
+  1. The path to the directory where the images are found
+  2. The extension used for images in that file (some are .jpg and some are .jpeg)
+  3. The number of the picture to start with... all the images should be named starting with something like foo0000.jpg and counting upward
+  4. The number of pictures to use, cannot be greater than the number of pictures in the directory
+
+The cycle option goes through every picture starting at the starting point and going up to the ending number, and it compares each picture to
+every picture starting at the starting point and going up to the ending number.  It displays close matches, and it builds a big matrix that
+contains the similarity values for each and every pairing.  There was code to print out this matrix at the end, not sure if it still exists.
+
+-----------------------------------------------------------------------------
+  
+The second option is compare.  This is followed by 2 values:
+  1. The path to the directory where the images are found
+  2. The extension used for images in that file (some are .jpg and some are .jpeg)
+
+The compare option works with the images in the given file, but it asks the user to enter which two images to compare.  It produces more
+verbose output than the cycle option.
+
+-----------------------------------------------------------------------------
+The third option is collect.  This is followed by FIVE values:
+  1. The path to the directory where the stored images are found
+  2. The extension used on those images
+  3. The path to the directory where test images are found
+  4. the number to start with in the stored images directory
+  5. the number to end with in the stored images directory
+  
+This option first reads in all the files in the stored directory and creates a vector of ImageFeatures objects.  It then asks the user
+to enter the number for a test image (from a different folder).  It makes an ImageFeature object for that image, and compares it against
+the stored ones, finding the three most similar images (with a total score less than 300).  Can be a good way to test the robustness
+of the similarity measure.
+ 
+
+
