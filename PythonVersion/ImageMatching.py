@@ -285,7 +285,7 @@ class ImageMatcher:
         bestMatches = []
         bestScores = []
         for pos in self.featureCollection:
-            print pos
+            #print pos
             feat = self.featureCollection[pos]
             simValue = features.evaluateSimilarity(feat)
             if simValue < self.threshold:

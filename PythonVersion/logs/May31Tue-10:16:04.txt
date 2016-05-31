@@ -1,0 +1,3 @@
+Reading in image database
+Length of collection = 175
+Finding most similar to selected

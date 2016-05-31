@@ -4,11 +4,11 @@ ImageFeatures.py
 Created: May, 2016
 Author: Susan
 
-This program contains the features from images, including Hough Lines, and
-color signatures (and watershed segmentation?).
+This program contains the features from images, including Orb features, Hough Lines, and
+color signatures. NOTE: I removed the watershed segmentation, as that didn't work well at all.
 
 NOTE: 
-
+* Orb features range from 0 to 100, real similarity is below 50, but can varry...
 * Hough lines similarity ranges between 0 and 200 for the test datasets, with
 real similarity values below 100
 
@@ -23,7 +23,7 @@ import cv2
 
 #import HoughLines
 #import ImageSegmentation
-#import ColorSignature
+import ColorSignature
 import OutputLogger
 import ORBrecognizer
 
@@ -40,7 +40,7 @@ class ImageFeatures:
         self.idNum = idNum
         self.logger = logger
         #self.houghLines = HoughLines.HoughLines(self.image, logger)
-        #self.colorSignature = ColorSignature.ColorSignature(self.image, logger)
+        self.colorSignature = ColorSignature.ColorSignature(self.image, logger)
         self.ORBrecognizer = ORBrecognizer.ORBrecognizer(self.image, logger)
         
         
@@ -67,7 +67,7 @@ class ImageFeatures:
         vertOffset = self.height + 10
         #self.houghLines.displayFeaturePics(houghName, startX, startY + vertOffset)
         sigName = "ColorSig-" + baseWindowName
-        #self.colorSignature.displayFeaturePics(sigName, startX, startY + 2 * vertOffset)
+        self.colorSignature.displayFeaturePics(sigName, startX, startY + 2 * vertOffset)
         orbName = "ORB-" + baseWindowName
         self.ORBrecognizer.displayFeaturePics(sigName, startX, startY +  vertOffset)
     
@@ -76,8 +76,8 @@ class ImageFeatures:
         """Evaluate similarity based on features. Compares Hough Lines and Color Signatures."""
         #houghSim = self.houghLines.evaluateSimilarity(featureObj.houghLines)
         #self.logger.log("Hough Lines sim = " + str(houghSim))
-        #colorSim = self.colorSignature.evaluateSimilarity(featureObj.colorSignature)
+        colorSim = self.colorSignature.evaluateSimilarity(featureObj.colorSignature)
         orbSim = self.ORBrecognizer.evaluateSimilarity(featureObj.ORBrecognizer)
         #self.logger.log("ColorSig sim =" + str(colorSim))
-        return orbSim #houghSim + colorSim + orbSim
+        return orbSim +colorSim #houghSim + colorSim + orbSim
         

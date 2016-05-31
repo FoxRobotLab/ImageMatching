@@ -1,0 +1,45 @@
+Reading in image database
+Length of collection = 175
+Finding most similar to selected
+Primary image = 55
+==========Close Matches==========
+Image 55 matches with similarity = 0.0
+Image 33 matches with similarity = 186.362145125
+Image 8 matches with similarity = 187.607913397
+Image 12 matches with similarity = 190.028783731
+Image 9 matches with similarity = 190.016516892
+Primary image = 24
+==========Close Matches==========
+Image 24 matches with similarity = 0.0
+Image 21 matches with similarity = 32.8127380944
+Image 22 matches with similarity = 43.1278078796
+Image 23 matches with similarity = 64.9330627719
+Image 14 matches with similarity = 65.0572206446
+Primary image = 75
+==========Close Matches==========
+Image 75 matches with similarity = 0.0
+Image 76 matches with similarity = 85.8564664047
+Image 72 matches with similarity = 139.604439412
+Image 77 matches with similarity = 178.29457626
+Image 69 matches with similarity = 181.329637227
+Primary image = 79
+==========Close Matches==========
+Image 79 matches with similarity = 0.0
+Image 78 matches with similarity = 177.061280041
+Image 63 matches with similarity = 193.628178041
+Image 72 matches with similarity = 193.394485002
+Image 77 matches with similarity = 193.255725607
+Primary image = 80
+==========Close Matches==========
+Image 80 matches with similarity = 0.0
+Image 81 matches with similarity = 88.6162244038
+Image 82 matches with similarity = 183.042744225
+Image 58 matches with similarity = 192.300129831
+Image 57 matches with similarity = 192.178873251
+Primary image = 150
+==========Close Matches==========
+Image 150 matches with similarity = 0.0
+Image 151 matches with similarity = 33.4507567179
+Image 149 matches with similarity = 60.0532729523
+Image 147 matches with similarity = 149.73265195
+Image 152 matches with similarity = 155.59547552
