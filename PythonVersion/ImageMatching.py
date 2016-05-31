@@ -84,7 +84,7 @@ class ImageMatcher:
     def cycle(self, verbose = False):
         """Compares all to all. Must have called makeCollection before calling this operation."""
         
-        if (self.currDirectory == None)\
+        if (self.currDirectory is None)\
            or (self.numPictures == -1):
             print("ERROR: cannot run cycle without at least a directory and a number of pictures")
             return
@@ -112,7 +112,7 @@ class ImageMatcher:
                 features2 = self.featureCollection[pic2num] #self._getImageAndDisplay(pic2num, "Image 2", 400, 0)
                 if verbose:
                     features2.displayFeaturePics("Image 2", self.width+10, 0)
-                    simVal = features1.evaluateSimilarity(features2)
+                simVal = features1.evaluateSimilarity(features2)
                 matchScore[picNum, pic2num] = simVal
                 logStr = "image " + str(picNum) + " matched image " + str(pic2num) + " with score " + str(simVal)
                 self.logger.log(logStr)
@@ -153,7 +153,7 @@ class ImageMatcher:
         """Loops until the user says to quit. It asks the user for two image numbers,
         reads those images from the current directory, and compares them, displaying the 
         results."""
-        if (self.currDirectory == None):
+        if (self.currDirectory is None):
             print("ERROR: cannot run compareSelected without at least a directory")
             return
         self.logger.log("Comparing user-selected pictures...")
@@ -189,7 +189,7 @@ class ImageMatcher:
     def makeCollection(self):
         """Reads in all the images in the specified directory, start number and end number, and 
         makes a list of ImageFeature objects for each image read in."""
-        if (self.currDirectory == None)\
+        if (self.currDirectory is None)\
            or (self.numPictures == -1):
             print("ERROR: cannot run makeCollection without a directory and a number of pictures")
             return
@@ -213,7 +213,7 @@ class ImageMatcher:
     # One of the major operations we can undertake, creates a list of ImageFeatures objects
     def mostSimilarSelected(self):
         """user selects images, and how many matches, and this finds and displas the  most similar."""
-        if (self.currDirectory == None)\
+        if (self.currDirectory is None)\
            or (self.numPictures == -1):
             print("ERROR: cannot run mostSimilarSelected without a directory and a number of pictures")
             return
@@ -250,7 +250,7 @@ class ImageMatcher:
         cap = cv2.VideoCapture(self.cameraNum)
         while not quitTime:
             image = self._userSelectFrame(cap)
-            if image == None:
+            if image is None:
                 break
             features = ImageFeatures.ImageFeatures(image, 9999, self.logger)
             cv2.imshow("Primary image", image)
@@ -378,11 +378,11 @@ class ImageMatcher:
         
 if __name__ == '__main__':
     matcher = ImageMatcher(logFile = True, logShell = True,
-                           dir1 = "../Pictures2016/May23-MobileTest4/",
+                           dir1 = "../Pictures2016/May23-MobileTest3/",
                            baseName = "pic",
                            ext = "jpg",
                            startPic = 0,
-                           numPics = 86)
+                           numPics = 175)
     matcher.makeCollection()
     #matcher.cycle()
     #matcher.compareSelected()
