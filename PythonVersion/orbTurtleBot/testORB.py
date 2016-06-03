@@ -99,7 +99,7 @@ def initRefs(itemsSought):
     
 #run this if you wanna test the feature recognition using still images
 def scanImages():
-    itemsSought = ['rassilon', 'flower', 'knot', 'sign', 'shield']
+    itemsSought = ['rassilon', 'flower', 'knot', 'sign', 'shield', 'emptyLetter']
     properties = initRefs(itemsSought)
     
     for j in range (1, 70): #hard-coded for number of images you're checking
@@ -108,8 +108,6 @@ def scanImages():
         img = cv2.imread(path, 0)
         if img is None:
             print("Target image", filename, "not found")
-        cv2.imshow("Come ON", img)
-        cv2.waitKey(0)
         findImage(img, properties, itemsSought, j)
 
 scanImages()
