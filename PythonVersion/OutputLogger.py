@@ -31,7 +31,7 @@ class OutputLogger:
                 os.makedirs('logs/')
             except:
                 pass
-            self.logName = time.strftime("%b%d%a-%H:%M:%S.txt")
+            self.logName = time.strftime("%b%d%a-%H%M%S.txt")
             try:
                 self.logFile = open("logs/" + self.logName, 'w')
                 self.fileOpen = True
