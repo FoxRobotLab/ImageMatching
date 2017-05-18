@@ -204,7 +204,8 @@ class ImageMatcher:
             #self.logger.log("Image = " + str(picNum))
             features = ImageFeatures.ImageFeatures(image, picNum, self.logger)
             self.featureCollection[picNum] = features
-            print i
+            if i % 100 == 0:
+                print i
             
         self.logger.log("Length of collection = " + str(self.numPictures))
 
@@ -378,15 +379,15 @@ class ImageMatcher:
         
 if __name__ == '__main__':
     matcher = ImageMatcher(logFile = True, logShell = True,
-                           dir1 = "../Pictures2016/May23-MobileTest3/",
-                           baseName = "pic",
+                           dir1 = "../Feb2017Pics/",
+                           baseName = "frame",
                            ext = "jpg",
                            startPic = 0,
-                           numPics = 175)
+                           numPics = 1000)
     matcher.makeCollection()
     # matcher.cycle()
-    matcher.compareSelected()
-    # matcher.mostSimilarSelected()
+    # matcher.compareSelected()
+    matcher.mostSimilarSelected()
         
         
         
