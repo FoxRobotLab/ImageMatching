@@ -384,9 +384,9 @@ if __name__ == '__main__':
                            startPic = 0,
                            numPics = 175)
     matcher.makeCollection()
-    #matcher.cycle()
-    #matcher.compareSelected()
-    matcher.mostSimilarSelected()
+    # matcher.cycle()
+    matcher.compareSelected()
+    # matcher.mostSimilarSelected()
         
         
         
