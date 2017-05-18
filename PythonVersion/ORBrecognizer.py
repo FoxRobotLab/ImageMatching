@@ -26,42 +26,37 @@ class ORBrecognizer(FeatureType.FeatureType):
     def __init__(self, image, logger):
         """Takes in an image and a logger and builds keypoints and descriptions. 
         Also initializes other instance variables that are needed"""
-	FeatureType.FeatureType.__init__(self, image, logger, 50.0, 100.0)
+        FeatureType.FeatureType.__init__(self, image, logger, 50.0, 100.0)
         self.image = image
         self.orb = cv2.ORB_create()
         self.kp, self.des = self.orb.detectAndCompute(self.image, None)
         self.matches = None
-	self.goodMatches = None
+        self.goodMatches = None
         
 
 
 
     def evaluateSimilarity(self, otherFeature):
-    	"""Given two images along with their features, calculates their similarity."""
-
-    	if self.des is None and otherFeature.des is None:
-	    return self._normalizeSimValue(0)
-	elif self.des is None or otherFeature.des is None:
-	    return  self._normalizeSimValue(100)
+        """Given two images along with their features, calculates their similarity."""
+        if self.des is None and otherFeature.des is None:
+            return self._normalizeSimValue(0)
+        elif self.des is None or otherFeature.des is None:
+            return  self._normalizeSimValue(100)
 
         # create BFMatcher object
         bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
         
         # Match descriptors.
         self.matches = bf.match(self.des,otherFeature.des)
-	
-	sortedMatches = sorted(self.matches, key = lambda x: x.distance)
-	self.goodMatches = [mat for mat in self.matches if mat.distance < 25]
-	#print "Good match number:", len(self.goodMatches)
-	
-	#matchImage = cv2.drawMatches(self.image, self.kp, otherFeature.image, otherFeature.kp, self.goodMatches, 
+        sortedMatches = sorted(self.matches, key = lambda x: x.distance)
+        self.goodMatches = [mat for mat in self.matches if mat.distance < 25]
+        # print "Good match number:", len(self.goodMatches)
+        #matchImage = cv2.drawMatches(self.image, self.kp, otherFeature.image, otherFeature.kp, self.goodMatches,
 	                             #None, matchColor = (255, 255, 0), singlePointColor=(0, 0, 255))
-	#cv2.imshow("Match Image", matchImage)
-	#cv2.waitKey(50)
-	matchNum = min(100, len(self.goodMatches))
-	return self._normalizeSimValue(100 - matchNum)		
-
-
+        # cv2.imshow("Match Image", matchImage)
+        # cv2.waitKey(50)
+        matchNum = min(100, len(self.goodMatches))
+        return self._normalizeSimValue(100 - matchNum)
 
        
     def displayFeaturePics(self, windowName, startX, startY):
