@@ -35,7 +35,7 @@ class OutputLogger:
             try:
                 self.logFile = open("logs/" + self.logName, 'w')
                 self.fileOpen = True
-            except e:
+            except:
                 print "LOGGER FAILED TO OPEN LOG FILE"
             
 
@@ -66,7 +66,7 @@ class OutputLogger:
             try:
                 self.logFile = open("logs/" + self.logName, 'a')
                 self.fileOpen = True
-            except e:
+            except:
                 print "LOGGER FAILED TO OPEN LOG FILE"
          
 

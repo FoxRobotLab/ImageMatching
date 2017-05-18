@@ -23,18 +23,18 @@ class FeatureType:
         """Takes in an image and the logger and sets up instance variables"""
         self.logger = logger
         self.image = image
-	self.goodThresh = thresh
-	self.maxValue = maxVal
+        self.goodThresh = thresh
+        self.maxValue = maxVal
 
 
  
     def displayFeaturePics(self, windowName, startX, startY):
         """Given a window name and a starting location on the screen, this creates
         an image that represents the color signature and displays it."""
-	# Override this in the child class
+        # Override this in the child class
         displayPic = self.image.copy()
-	cv2.imshow(windowName, displayPic)
-	cv2.moveWindow(windowName, startX, startY)
+        cv2.imshow(windowName, displayPic)
+        cv2.moveWindow(windowName, startX, startY)
     
     
 
@@ -45,16 +45,15 @@ class FeatureType:
         It then adds each line in the otherLines to queues for the lines that match.
         It then uses a greedy algorithm to pick matches (not optimal, but efficient).
         """
-	# Override this in the child class
-	return self.maxValue
+        # Override this in the child class
+        # return self.maxValue
 
 
     def _normalizeSimValue(self, simValue):
-	"""Takes in a similarity value and normalizes it to be between
-	0 and 100. However, it divides the range of possible values
-	(given by self.maxValue, into two parts, the "good" side,
-	values less than self.goodThresh, and the "bad" side, values greater than self.goodThresh. This way, it stretches the "good" side to be values between 0 and 50, and the bad side to
-	be values between 50 and 100."""
+        """Takes in a similarity value and normalizes it to be between 0 and 100. However, it divides the
+        range of possible values (given by self.maxValue, into two parts, the "good" side, values less than
+        self.goodThresh, and the "bad" side, values greater than self.goodThresh. This way, it stretches the "good"
+        side to be values between 0 and 50, and the bad side to be values between 50 and 100."""
         if simValue < self.goodThresh:
             ratio = simValue / float(self.goodThresh)
             normedVal = ratio * 50.0
@@ -63,7 +62,7 @@ class FeatureType:
             distFromBottom = simValue - self.goodThresh
             ratio = distFromBottom / rangeSize
             normedVal = 50.0 + (ratio * 50.0)
-	return normedVal
+        return normedVal
     
 
 
